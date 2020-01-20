@@ -2,9 +2,17 @@
 #include <string>
 using namespace std;
 
+struct address{
+    int houseNumber;
+    string suburb;
+    string city;
+    string estate;
+};
+
 struct deliveryOrder{
+    int idDelivery;
     string nameClient;
-    string address;
+    address clientAddress;
     string telephone;
     int mainDish;
     int appetizer;
@@ -13,6 +21,7 @@ struct deliveryOrder{
     int paymentType;
 };
 struct restaurantOrder{
+    int idRestaurant;
     string nameClient;
     int clientNumber;
     int mainDish;
@@ -21,11 +30,16 @@ struct restaurantOrder{
     int amount;
     int paymentType;
 };
-struct libro catalogo[10];
+
+int idDeliveryNumber = 0;
+int idRestaurantNumber = 0;
+deliveryOrder* deliveryList;
+restaurantOrder* restaurantList;
+
 int restaurantOrderNumber = 0;
 int deliveryOrderNumber = 0;
 
-void addDeliveryOrder(), addRestaurantOrder(), showDeliveryOrder(),showRestaurantOrder();
+void addDeliveryOrder(), addRestaurantOrder(), showDeliveryOrder(),showRestaurantOrder(), searchOrderbyClient();
 
 int main(){
     // Mostrar menu al usuario
@@ -53,8 +67,10 @@ int main(){
             cout << "\n1. Agregar pedido a domicilio\n";
             cout << "2. Agregar encargo en restaurante\n";
             cout << "3. Ver pedidos a domicilio\n";
-            cout << "4. Ver encargas a restaurantes\n";
-            cout << "5. Ver total de venta\n";
+            cout << "4. Buscar orden por cliente\n";
+            cout << "5. Ver encargas a restaurantes\n";
+            cout << "6. Ver total de venta\n";
+            cout << "7. Salir\n";
             cout << "Opcion: ";
             cin >> opcion;
             cin.ignore();
@@ -63,9 +79,10 @@ int main(){
                 case 1: addDeliveryOrder(); break;
                 case 2: addRestaurantOrder(); break;
                 case 3: showDeliveryOrder(); break;
-                case 4: showRestaurantOrder();break;
-                case 5: totalSells();break;
-                case 6: continuar = false;
+                case 4: searchOrderbyClient();break;
+                case 5: showRestaurantOrder();break;
+                case 6: totalSells();break;
+                case 7: continuar = false;
             }
         }while(continuar);
     }
@@ -88,5 +105,9 @@ void showRestaurantOrder(){
 
 }
 void totalSells(){
+
+}
+
+void searchOrderbyClient(){
 
 }
