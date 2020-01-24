@@ -1,5 +1,8 @@
 #include <iostream>
 #include <string>
+
+#define PASSWORD "clave"
+
 using namespace std;
 
 struct address{
