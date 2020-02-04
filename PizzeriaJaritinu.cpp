@@ -1,7 +1,17 @@
 #include <iostream>
 #include <string>
+
+//declaracion define
+#define PASSWORD "vector"
+
 using namespace std;
 
+enum mainDish {pizza, pasta, lasagna};
+enum drink {beer, soda, tea};
+enum starter {garlicBread, pizzaRolls, cheeseSticks};
+enum paymentType {cash,card};
+
+//declaraciones de estrucuturas
 struct address{
     int houseNumber;
     string suburb;
@@ -9,41 +19,41 @@ struct address{
     string estate;
 };
 
-struct deliveryOrder{
-    int idDelivery;
-    string nameClient;
-    address clientAddress;
-    string telephone;
-    int mainDish;
-    int appetizer;
-    int drink;
-    int amount;
-    int paymentType;
-};
-struct restaurantOrder{
-    int idRestaurant;
-    string nameClient;
-    int clientNumber;
-    int mainDish;
-    int appetizer;
-    int drink;
-    int amount;
-    int paymentType;
+struct mainInfo{
+    string name;
+    mainDish pDish;
+    drink pDrink;
+    starter pStarter;
+    paymentType pay;
+    int idOrder;
+    float total;
 };
 
+struct deliveryOrder{
+    address clientAddress;
+    int telephone;
+    mainInfo deliveryInfo;
+};
+
+struct restaurantOrder{
+    int cTable;
+    mainInfo houseInfo;
+};
+
+//variables globales
 int idDeliveryNumber = 0;
 int idRestaurantNumber = 0;
+int restaurantOrderNumber = 0;
+int deliveryOrderNumber = 0;
 deliveryOrder* deliveryList;
 restaurantOrder* restaurantList;
 
-int restaurantOrderNumber = 0;
-int deliveryOrderNumber = 0;
-
-void addDeliveryOrder(), addRestaurantOrder(), showDeliveryOrder(),showRestaurantOrder(), searchOrderbyClient(), delteOrder();
+//Prototipos
+void addDeliveryOrder(), addRestaurantOrder(), showDeliveryOrder(),showRestaurantOrder(), searchOrderbyClient(), delteOrder(), printMenu(void);
+bool loginUser(void);
 
 int main(){
     // Mostrar menu al usuario
-    string clave = "vector";
     string password = "";
     int counterPass = 0;
     int user = 0;
@@ -59,7 +69,7 @@ int main(){
         do{
             cout << "Digite el password: ";
             getline(cin,password);
-            if (password == clave){
+            if (password == PASSWORD){
                 flagPass = true;
             }
             else{
@@ -72,14 +82,18 @@ int main(){
             bool continuar = true;
             do{
                 int opcion = 0;
-                cout << "\n1. Agregar pedido a domicilio\n";
-                cout << "2. Agregar encargo en restaurante\n";
-                cout << "3. Ver pedidos a domicilio\n";
-                cout << "4. Buscar orden por cliente\n";
-                cout << "5. Eliminar orden\n";
-                cout << "6. Ver encargas a restaurantes\n";
-                cout << "7. Ver total de venta\n";
-                cout << "8. Salir\n";
+                cout << "\n1. Agregar orden a domicilio\n";
+                cout << "2.  Agregar orden en restaurante\n";
+                cout << "3.  Ver ordenes a domicilio\n";
+                cout << "4.  Ver ordenes en restaurantes\n";
+                cout << "5.  Despachar ordenes a domicilio\n";
+                cout << "6.  Despachar ordenes a restaurante\n";
+                cout << "7.  Ver tiempo promedio de espera a domicilio\n";
+                cout << "8.  Ver tiempo promedio de espera restaurante\n";
+                cout << "9.  Cancelar orden\n";
+                cout << "10. Calcular total de ventas\n";
+                cout << "11. Cambia de usuario\n";
+                cout << "12. Salir\n";
                 cout << "Opcion: ";
                 cin >> opcion;
                 cin.ignore();
@@ -104,13 +118,17 @@ int main(){
         bool continuar = true;
         do{
                 int opcion = 0;
-                cout << "\n1. Agregar pedido a domicilio\n";
-                cout << "2. Agregar encargo en restaurante\n";
-                cout << "3. Ver pedidos a domicilio\n";
-                cout << "4. Buscar orden por cliente\n";
-                cout << "5. Ver encargas a restaurantes\n";
-                cout << "6. Ver total de venta\n";
-                cout << "7. Salir\n";
+                cout << "\n1. Agregar orden a domicilio\n";
+                cout << "2.  Agregar orden en restaurante\n";
+                cout << "3.  Ver ordenes a domicilio\n";
+                cout << "4.  Ver ordenes en restaurantes\n";
+                cout << "5.  Despachar ordenes a domicilio\n";
+                cout << "6.  Despachar ordenes a restaurante\n";
+                cout << "7.  Ver tiempo promedio de espera a domicilio\n";
+                cout << "8.  Ver tiempo promedio de espera restaurante\n";
+                cout << "9. Calcular total de ventas\n";
+                cout << "10. Cambia de usuario\n";
+                cout << "11. Salir\n";
                 cout << "Opcion: ";
                 cin >> opcion;
                 cin.ignore();
@@ -134,6 +152,9 @@ int main(){
     
     return 0;
 }
+
+
+
 void addDeliveryOrder(){
 
 } 
