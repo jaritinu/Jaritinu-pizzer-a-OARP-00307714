@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
 
-#define PASSWORD "clave"
+//declaracion define
+#define PASSWORD "vector"
 
 using namespace std;
 
@@ -10,6 +11,7 @@ enum drink {beer, soda, tea};
 enum starter {garlicBread, pizzaRolls, cheeseSticks};
 enum paymentType {cash,card};
 
+//declaraciones de estrucuturas
 struct address{
     int houseNumber;
     string suburb;
@@ -17,41 +19,41 @@ struct address{
     string estate;
 };
 
-struct deliveryOrder{
-    int idDelivery;
-    string nameClient;
-    address clientAddress;
-    string telephone;
-    int mainDish;
-    int appetizer;
-    int drink;
-    int amount;
-    int paymentType;
-};
-struct restaurantOrder{
-    int idRestaurant;
-    string nameClient;
-    int clientNumber;
-    int mainDish;
-    int appetizer;
-    int drink;
-    int amount;
-    int paymentType;
+struct mainInfo{
+    string name;
+    mainDish pDish;
+    drink pDrink;
+    starter pStarter;
+    paymentType pay;
+    int idOrder;
+    float total;
 };
 
+struct deliveryOrder{
+    address clientAddress;
+    int telephone;
+    mainInfo deliveryInfo;
+};
+
+struct restaurantOrder{
+    int cTable;
+    mainInfo houseInfo;
+};
+
+//variables globales
 int idDeliveryNumber = 0;
 int idRestaurantNumber = 0;
+int restaurantOrderNumber = 0;
+int deliveryOrderNumber = 0;
 deliveryOrder* deliveryList;
 restaurantOrder* restaurantList;
 
-int restaurantOrderNumber = 0;
-int deliveryOrderNumber = 0;
-
-void addDeliveryOrder(), addRestaurantOrder(), showDeliveryOrder(),showRestaurantOrder(), searchOrderbyClient(), delteOrder();
+//Prototipos
+void addDeliveryOrder(), addRestaurantOrder(), showDeliveryOrder(),showRestaurantOrder(), searchOrderbyClient(), delteOrder(), printMenu(void);
+bool loginUser(void);
 
 int main(){
     // Mostrar menu al usuario
-    string clave = "vector";
     string password = "";
     int counterPass = 0;
     int user = 0;
@@ -67,7 +69,7 @@ int main(){
         do{
             cout << "Digite el password: ";
             getline(cin,password);
-            if (password == clave){
+            if (password == PASSWORD){
                 flagPass = true;
             }
             else{
@@ -150,6 +152,9 @@ int main(){
     
     return 0;
 }
+
+
+
 void addDeliveryOrder(){
 
 } 
