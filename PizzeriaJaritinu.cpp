@@ -27,6 +27,7 @@ struct mainInfo{
     paymentType pay;
     int idOrder;
     float total;
+    int time;
 };
 
 struct deliveryOrder{
@@ -47,113 +48,145 @@ int restaurantOrderNumber = 0;
 int deliveryOrderNumber = 0;
 deliveryOrder* deliveryList;
 restaurantOrder* restaurantList;
-
+bool flagPass = false;
+int user = 0;
+int counterPass = 0;
 //Prototipos
-void addDeliveryOrder(), addRestaurantOrder(), showDeliveryOrder(),showRestaurantOrder(), searchOrderbyClient(), delteOrder(), printMenu(void);
+void addDeliveryOrder(), addRestaurantOrder(), showDeliveryOrder(),showRestaurantOrder(), searchOrderbyClient(), delteOrder(), printMenuA(void),printMenuE(void);
 bool loginUser(void);
 
 int main(){
     // Mostrar menu al usuario
-    string password = "";
-    int counterPass = 0;
-    int user = 0;
-    bool flagPass = false;
+    
+    bool endprogram = true;
+    int opcion = 0;
     cout << "------Pizzeria Jaritinu------" <<endl;
-    cout << "1. Empleado";
-    cout << "2. Administrador";
+    cout << "1. Administrador";
+    cout << "2. Empleado";
     cout << "Seleccione el tipo de usuario (1 o 2): ";
-
-    switch (user)
-    {
-    case 1:
+    cin >> user;
+    do{
+        switch (user)
+        {
+        case 1:
+           /* do{
+                cout << "Digite el password: ";
+                getline(cin,password);
+                if (password.compare(PASSWORD) == 0){
+                    flagPass = true;
+                }
+                else{
+                    cout << "\nPassword incorrecto." << endl;
+                    counterPass++;
+                }
+            }while (flagPass == false && counterPass < 3);
+        */
         do{
-            cout << "Digite el password: ";
-            getline(cin,password);
-            if (password == PASSWORD){
-                flagPass = true;
+            if (flagPass == true){
+        //        bool continuar = true;
+                    printMenuA(),
+                    cin >> opcion;
+                    cin.ignore();
+                    
+                    switch(opcion){
+                        case 1: addDeliveryOrder(); break;
+                        case 2: addRestaurantOrder(); break;
+                        case 3: showDeliveryOrder(); break;
+                        case 4: searchOrderbyClient();break;
+                        case 5: delteOrder();break;
+                        case 6: showRestaurantOrder();break;
+                        case 7: totalSells();break;
+                        case 8: endprogram = false; break;
+                    }
+                
             }
             else{
-                cout << "\nPassword incorrecto." << endl;
-                counterPass++;
+                flagPass = loginUser();
+                if(counterPass==3)
+                    endprogram = false;
             }
-        }while (flagPass == false && counterPass < 3);
-    
-        if (flagPass==true){
-            bool continuar = true;
+        }while(endprogram);
+            break;
+        case 2:
+            
             do{
-                int opcion = 0;
-                cout << "\n1. Agregar orden a domicilio\n";
-                cout << "2.  Agregar orden en restaurante\n";
-                cout << "3.  Ver ordenes a domicilio\n";
-                cout << "4.  Ver ordenes en restaurantes\n";
-                cout << "5.  Despachar ordenes a domicilio\n";
-                cout << "6.  Despachar ordenes a restaurante\n";
-                cout << "7.  Ver tiempo promedio de espera a domicilio\n";
-                cout << "8.  Ver tiempo promedio de espera restaurante\n";
-                cout << "9.  Cancelar orden\n";
-                cout << "10. Calcular total de ventas\n";
-                cout << "11. Cambia de usuario\n";
-                cout << "12. Salir\n";
-                cout << "Opcion: ";
-                cin >> opcion;
-                cin.ignore();
-                
-                switch(opcion){
-                    case 1: addDeliveryOrder(); break;
-                    case 2: addRestaurantOrder(); break;
-                    case 3: showDeliveryOrder(); break;
-                    case 4: searchOrderbyClient();break;
-                    case 5: delteOrder();break;
-                    case 6: showRestaurantOrder();break;
-                    case 7: totalSells();break;
-                    case 8: continuar = false;
-                }
-            }while(continuar);
+                    int opcion = 0;
+                    printMenuE();
+                    cin >> opcion;
+                    cin.ignore();
+                    
+                    switch(opcion){
+                        case 1: addDeliveryOrder(); break;
+                        case 2: addRestaurantOrder(); break;
+                        case 3: showDeliveryOrder(); break;
+                        case 4: searchOrderbyClient();break;
+                        case 5: showRestaurantOrder();break;
+                        case 6: totalSells();break;
+                        case 7: loginUser();break;
+                        case 8: endprogram = false; break;
+                    }
+                }while(endprogram);
+        default:
+            return 0;
+            break;
         }
-        else{
-            cout << "\nFallo los 3 intentos" << endl;
-        }
-        break;
-    case 2:
-        bool continuar = true;
-        do{
-                int opcion = 0;
-                cout << "\n1. Agregar orden a domicilio\n";
-                cout << "2.  Agregar orden en restaurante\n";
-                cout << "3.  Ver ordenes a domicilio\n";
-                cout << "4.  Ver ordenes en restaurantes\n";
-                cout << "5.  Despachar ordenes a domicilio\n";
-                cout << "6.  Despachar ordenes a restaurante\n";
-                cout << "7.  Ver tiempo promedio de espera a domicilio\n";
-                cout << "8.  Ver tiempo promedio de espera restaurante\n";
-                cout << "9. Calcular total de ventas\n";
-                cout << "10. Cambia de usuario\n";
-                cout << "11. Salir\n";
-                cout << "Opcion: ";
-                cin >> opcion;
-                cin.ignore();
-                
-                switch(opcion){
-                    case 1: addDeliveryOrder(); break;
-                    case 2: addRestaurantOrder(); break;
-                    case 3: showDeliveryOrder(); break;
-                    case 4: searchOrderbyClient();break;
-                    case 5: showRestaurantOrder();break;
-                    case 6: totalSells();break;
-                    case 7: continuar = false;
-                }
-            }while(continuar);
-    default:
-        return 0;
-        break;
-    }
-
+    }while(endprogram);
 
     
     return 0;
 }
 
+bool loginUser(){
+    string password = "";
+    
+    do{
+        cout << "Digite el password: ";
+        getline(cin,password);
+        if (password.compare(PASSWORD) == 0){
+            flagPass = true;
+            counterPass = 0;
+        }
+        else{
+            cout << "\nPassword incorrecto." << endl;
+            counterPass++;
+        }
+    }while (flagPass == false && counterPass < 3);
+    if(counterPass == 3)
+        flagPass = false;
 
+    return flagPass;
+}
+
+void printMenuE(void){
+    cout << "\n1. Agregar orden a domicilio\n";
+    cout << "2.  Agregar orden en restaurante\n";
+    cout << "3.  Ver ordenes a domicilio\n";
+    cout << "4.  Ver ordenes en restaurantes\n";
+    cout << "5.  Despachar ordenes a domicilio\n";
+    cout << "6.  Despachar ordenes a restaurante\n";
+    cout << "7.  Ver tiempo promedio de espera a domicilio\n";
+    cout << "8.  Ver tiempo promedio de espera restaurante\n";
+    cout << "9. Calcular total de ventas\n";
+    cout << "10. Cambia de usuario\n";
+    cout << "11. Salir\n";
+    cout << "Opcion: ";
+}
+
+void printMenuA(void){
+    cout << "\n1. Agregar orden a domicilio\n";
+    cout << "2.  Agregar orden en restaurante\n";
+    cout << "3.  Ver ordenes a domicilio\n";
+    cout << "4.  Ver ordenes en restaurantes\n";
+    cout << "5.  Despachar ordenes a domicilio\n";
+    cout << "6.  Despachar ordenes a restaurante\n";
+    cout << "7.  Ver tiempo promedio de espera a domicilio\n";
+    cout << "8.  Ver tiempo promedio de espera restaurante\n";
+    cout << "9.  Cancelar orden\n";
+    cout << "10. Calcular total de ventas\n";
+    cout << "11. Cambia de usuario\n";
+    cout << "12. Salir\n";
+    cout << "Opcion: ";
+}
 
 void addDeliveryOrder(){
 
