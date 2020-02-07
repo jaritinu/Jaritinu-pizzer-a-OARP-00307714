@@ -47,6 +47,10 @@ int idOrder = 1;
 // Prototipos
 bool loginUser(void);
 void printMenu(void);
+void addOrder(delivery* array);
+void addOrder(houseOrder* array);
+void searchByName(delivery* array, int size);
+void searchByName(houseOrder* array, int size);
 
 int main(void){
     // Declaracion de variables y arreglos a usar

@@ -52,7 +52,9 @@ bool flagPass = false;
 int user = 0;
 int counterPass = 0;
 //Prototipos
-void addDeliveryOrder(), addRestaurantOrder(), showDeliveryOrder(),showRestaurantOrder(), searchOrderbyClient(), delteOrder(), printMenuA(void),printMenuE(void);
+void addOrder(); 
+void addOrder(); 
+void showDeliveryOrder(),showRestaurantOrder(), searchOrderbyClient(), delteOrder(), printMenuA(void),printMenuE(void);
 bool loginUser(void);
 
 int main(){
@@ -69,46 +71,38 @@ int main(){
         switch (user)
         {
         case 1:
-           /* do{
-                cout << "Digite el password: ";
-                getline(cin,password);
-                if (password.compare(PASSWORD) == 0){
-                    flagPass = true;
+            do{
+                if (flagPass == true){
+            //        bool continuar = true;
+                        printMenuA(),
+                        cin >> opcion;
+                        cin.ignore();
+                        
+                        switch(opcion){
+                            case 1: addOrder(); break;
+                            case 2: addOrder(); break;
+                            case 3: showDeliveryOrder(); break;
+                            case 4: searchOrderbyClient();break;
+                            case 5: delteOrder();break;
+                            case 6: showRestaurantOrder();break;
+                            case 7: totalSells();break;
+                            case 8: endprogram = false; break;
+                            case 9: searchOrderbyClient();break;
+                            case 10: delteOrder();break;
+                            case 11: showRestaurantOrder();break;
+                            case 12: totalSells();break;
+                            default: endprogram = false; break;
+                        }
+                    
                 }
                 else{
-                    cout << "\nPassword incorrecto." << endl;
-                    counterPass++;
+                    flagPass = loginUser();
+                    if(counterPass==3)
+                        endprogram = false;
                 }
-            }while (flagPass == false && counterPass < 3);
-        */
-        do{
-            if (flagPass == true){
-        //        bool continuar = true;
-                    printMenuA(),
-                    cin >> opcion;
-                    cin.ignore();
-                    
-                    switch(opcion){
-                        case 1: addDeliveryOrder(); break;
-                        case 2: addRestaurantOrder(); break;
-                        case 3: showDeliveryOrder(); break;
-                        case 4: searchOrderbyClient();break;
-                        case 5: delteOrder();break;
-                        case 6: showRestaurantOrder();break;
-                        case 7: totalSells();break;
-                        case 8: endprogram = false; break;
-                    }
-                
-            }
-            else{
-                flagPass = loginUser();
-                if(counterPass==3)
-                    endprogram = false;
-            }
-        }while(endprogram);
+            }while(endprogram);
             break;
         case 2:
-            
             do{
                     int opcion = 0;
                     printMenuE();
@@ -116,16 +110,20 @@ int main(){
                     cin.ignore();
                     
                     switch(opcion){
-                        case 1: addDeliveryOrder(); break;
-                        case 2: addRestaurantOrder(); break;
+                        case 1: addOrder(); break;
+                        case 2: addOrder(); break;
                         case 3: showDeliveryOrder(); break;
                         case 4: searchOrderbyClient();break;
                         case 5: showRestaurantOrder();break;
                         case 6: totalSells();break;
                         case 7: loginUser();break;
-                        case 8: endprogram = false; break;
+                        case 9: endprogram = false; break;
+                        case 10: showRestaurantOrder();break;
+                        case 11: totalSells();break;
+                        default: loginUser();break;
                     }
-                }while(endprogram);
+                }while(endprogram); 
+                break;
         default:
             return 0;
             break;
@@ -188,11 +186,148 @@ void printMenuA(void){
     cout << "Opcion: ";
 }
 
-void addDeliveryOrder(){
+void addOrder(){
+    deliveryOrder p;
+    int aux;
+    cout << "Nombre:\t"; getline(cin, p.deliveryInfo.name);
+        cout << "Direccion" << endl;
+        cout << "Colonia:\t"; getline(cin, p.clientAddress.suburb);
+        cout << "Municipio:\t"; getline(cin, p.clientAddress.city);
+        cout << "Departamento:\t"; getline(cin, p.clientAddress.estate);
+        cout << "No. casa:\t"; cin >> p.clientAddress.houseNumber;
+        cin.ignore();
+
+        cout << "Entrada" << endl;
+        cout << "1 - Pan con ajo" << endl;
+        cout << "2 - Pizza rolls" << endl;
+        cout << "3 - Palitos de queso" << endl;
+        cout << "Su opcion:\t"; cin >> aux;
+        cin.ignore();
+
+        if(aux == 1)
+            p.deliveryInfo.pStarter = garlicBread;
+        else if(aux == 2)
+            p.deliveryInfo.pStarter = pizzaRolls;
+        else
+            p.deliveryInfo.pStarter = cheeseSticks;
+
+        cout << "Plato principal" << endl;
+        cout << "1 - Pizza" << endl;
+        cout << "2 - Pasta" << endl;
+        cout << "3 - Lasagna" << endl;
+        cout << "Su opcion:\t"; cin >> aux;
+        cin.ignore();
+
+        if(aux == 1)
+            p.deliveryInfo.pDish = pizza;
+        else if(aux == 2)
+            p.deliveryInfo.pDish = pasta;
+        else
+            p.deliveryInfo.pDish = lasagna;
+
+        cout << "Bebida" << endl;
+        cout << "1 - Cerveza" << endl;
+        cout << "2 - Soda" << endl;
+        cout << "3 - Te helado" << endl;
+        cout << "Su opcion:\t"; cin >> aux;
+        cin.ignore();
+
+        if(aux == 1)
+            p.deliveryInfo.pDrink = beer;
+        else if(aux == 2)
+            p.deliveryInfo.pDrink = soda;
+        else
+            p.deliveryInfo.pDrink = tea;
+
+        p.deliveryInfo.idOrder = idDeliveryNumber++;
+        
+        cout << "Tipo de pago" << endl;
+        cout << "1 - Tarjeta" << endl;
+        cout << "2 - Efectivo" << endl;
+        cout << "Su opcion:\t"; cin >> aux;
+        cin.ignore();
+
+        if(aux == 1)
+            p.deliveryInfo.pay = card;
+        else
+            p.deliveryInfo.pay = cash;
+
+        cout << "Monto: "; cin >> p.deliveryInfo.total;
+        cin.ignore();
+        cout << "Telefono: "; cin >> p.telephone;
+        cin.ignore();
 
 } 
-void addRestaurantOrder(){
+void addOrder(){
+    restaurantOrder p;
+    int aux;
+    cout << "Nombre:\t"; getline(cin, p.houseInfo.name);
+        cout << "Direccion" << endl;
+        cout << "Colonia:\t"; getline(cin, p.houseInfo.);
+        cout << "Municipio:\t"; getline(cin, p.clientAddress.city);
+        cout << "Departamento:\t"; getline(cin, p.clientAddress.estate);
+        cout << "No. casa:\t"; cin >> p.clientAddress.houseNumber;
+        cin.ignore();
 
+        cout << "Entrada" << endl;
+        cout << "1 - Pan con ajo" << endl;
+        cout << "2 - Pizza rolls" << endl;
+        cout << "3 - Palitos de queso" << endl;
+        cout << "Su opcion:\t"; cin >> aux;
+        cin.ignore();
+
+        if(aux == 1)
+            p.deliveryInfo.pStarter = garlicBread;
+        else if(aux == 2)
+            p.deliveryInfo.pStarter = pizzaRolls;
+        else
+            p.deliveryInfo.pStarter = cheeseSticks;
+
+        cout << "Plato principal" << endl;
+        cout << "1 - Pizza" << endl;
+        cout << "2 - Pasta" << endl;
+        cout << "3 - Lasagna" << endl;
+        cout << "Su opcion:\t"; cin >> aux;
+        cin.ignore();
+
+        if(aux == 1)
+            p.deliveryInfo.pDish = pizza;
+        else if(aux == 2)
+            p.deliveryInfo.pDish = pasta;
+        else
+            p.deliveryInfo.pDish = lasagna;
+
+        cout << "Bebida" << endl;
+        cout << "1 - Cerveza" << endl;
+        cout << "2 - Soda" << endl;
+        cout << "3 - Te helado" << endl;
+        cout << "Su opcion:\t"; cin >> aux;
+        cin.ignore();
+
+        if(aux == 1)
+            p.deliveryInfo.pDrink = beer;
+        else if(aux == 2)
+            p.deliveryInfo.pDrink = soda;
+        else
+            p.deliveryInfo.pDrink = tea;
+
+        p.deliveryInfo.idOrder = idDeliveryNumber++;
+        
+        cout << "Tipo de pago" << endl;
+        cout << "1 - Tarjeta" << endl;
+        cout << "2 - Efectivo" << endl;
+        cout << "Su opcion:\t"; cin >> aux;
+        cin.ignore();
+
+        if(aux == 1)
+            p.deliveryInfo.pay = card;
+        else
+            p.deliveryInfo.pay = cash;
+
+        cout << "Monto: "; cin >> p.deliveryInfo.total;
+        cin.ignore();
+        cout << "Telefono: "; cin >> p.telephone;
+        cin.ignore();
 } 
 void showDeliveryOrder(){
 
