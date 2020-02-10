@@ -53,9 +53,7 @@ struct NodoR{
 };
 
 //variables globales
-//int idDeliveryNumber = 0;
-//int idRestaurantNumber = 0;
-//int restaurantOrderNumber = 0;
+
 int idOrder = 0;
 NodoD* deliveryList;
 NodoR* restaurantList;
@@ -65,13 +63,17 @@ int counterPass = 0;
 //Prototipos
 void addOrderD(); 
 void addOrderR(); 
-void showDeliveryOrder(),showRestaurantOrder(), searchOrderbyClient(), delteOrderD(), printMenuA(void),printMenuE(void);
+void showDeliveryOrder();
+void showRestaurantOrder(); 
+void delteOrderD(); 
+void printMenuA(void);
+void printMenuE(void);
 void dispatchOrderD();
 void dispatchOrderR();
 void averageTimeD();
 void averageTimeR();
 void cancelOrder();
-void totalSells();
+float totalSells();
 bool loginUser(void);
 
 
@@ -108,8 +110,8 @@ int main(){
                         switch(opcion){
                             case 1: addOrderD(); break;
                             case 2: addOrderR(); break;
-                            case 3: showDeliveryOrder(); break;
-                            case 4: showRestaurantOrder(); break;
+                            case 3: showDeliveryOrder(deliveryList); break;
+                            case 4: showRestaurantOrder(restaurantList); break;
                             case 5: dispatchOrderD(); break;
                             case 6: dispatchOrderR(); break;
                             case 7: averageTimeD(); break;
@@ -139,13 +141,13 @@ int main(){
                     switch(opcion){
                         case 1: addOrderD(); break;
                         case 2: addOrderR(); break;
-                        case 3: showDeliveryOrder(); break;
-                        case 4: searchOrderbyClient(); break;
-                        case 5: showRestaurantOrder(); break;
-                        case 6: totalSells(); break;
-                        case 7: loginUser(); break;
-                        case 8: endprogram = false; break;
-                        case 9: showRestaurantOrder(); break;
+                        case 3: showDeliveryOrder(deliveryList); break;
+                        case 4: showRestaurantOrder(restaurantList); break;
+                        case 5: dispatchOrderD(); break;
+                        case 6: dispatchOrderR(); break;
+                        case 7: averageTimeD(); break;
+                        case 8: averageTimeR(); break;
+                        case 9: totalSells(); break;
                         case 10: loginUser(); continuar = false;break;
                         case 11: continuar = false; endprogram = false; break;
                         default: cout << "\nError!"; break;
@@ -353,15 +355,35 @@ void addOrderR(){
     cout << "Monto: "; cin >> p.houseInfo.total;
     cin.ignore();
 } 
-void showDeliveryOrder(){
-
+void showDeliveryOrder(NodoD* list){
+    if(!list){
+        return;
+    }
+    else{
+        cout << list->order.deliveryInfo.idOrder << endl;
+        showDeliveryOrder(list->next);
+    }
 }
-void showRestaurantOrder(){
-
+void showRestaurantOrder(NodoR* list){
+      if(!list){
+        return;
+    }
+    else{
+        cout << list->order.houseInfo.idOrder << endl;
+        showRestaurantOrder(list->next);
+    }
 }
 
 void cancelOrder(){
-
+    int n = 0;
+    cout << "1. Cancelar Delivery" << endl;
+    cout << "2. Cancelar Restaurante" << endl;
+    cout << "Seleccione el tipo de usuario (1 o 2): ";
+    cin >> n; cin.ignore();
+    if(n==1)
+        delteOrderD();
+    else if(n==2)
+        delteOrderR();
 }
 
 void delteOrderD(){
@@ -381,7 +403,7 @@ void delteOrderD(){
         p = p->next;
     }
     if(p == NULL){
-        cout << "Dato a borrar NO existe" << endl;
+        cout << "Orden a borrar NO existe" << endl;
         return;
     }
     if(q == NULL)
@@ -389,7 +411,7 @@ void delteOrderD(){
     else
         q->next = p->next;
     delete(p);
-    cout << "Dato borrado!" << endl;
+    cout << "Orden cancelada!" << endl;
 }
 
 void delteOrderR(){
@@ -421,13 +443,10 @@ void delteOrderR(){
 }
 
 
-void totalSells(){
+float totalSells(){
 
 }
 
-void searchOrderbyClient(){
-
-}
 
 void dispatchOrderD(){
 
