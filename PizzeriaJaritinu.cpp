@@ -63,9 +63,14 @@ bool flagPass = false;
 int user = 0;
 int counterPass = 0;
 //Prototipos
-void addOrder(); 
+void addOrderD(); 
 void addOrderR(); 
 void showDeliveryOrder(),showRestaurantOrder(), searchOrderbyClient(), delteOrderD(), printMenuA(void),printMenuE(void);
+void dispatchOrderD();
+void dispatchOrderR();
+void averageTimeD();
+void averageTimeR();
+void cancelOrder();
 void totalSells();
 bool loginUser(void);
 
@@ -101,19 +106,19 @@ int main(){
                         cin.ignore();
                         
                         switch(opcion){
-                            case 1: addOrder(); break;
+                            case 1: addOrderD(); break;
                             case 2: addOrderR(); break;
                             case 3: showDeliveryOrder(); break;
-                            case 4: searchOrderbyClient();break;
-                            case 5: delteOrderD();break;
-                            case 6: showRestaurantOrder();break;
-                            case 7: totalSells();break;
-                            case 8: endprogram = false; break;
-                            case 9: searchOrderbyClient();break;
-                            case 10: delteOrderD();break;
+                            case 4: showRestaurantOrder(); break;
+                            case 5: dispatchOrderD(); break;
+                            case 6: dispatchOrderR(); break;
+                            case 7: averageTimeD(); break;
+                            case 8: averageTimeR(); break;
+                            case 9: cancelOrder(); break;
+                            case 10: totalSells(); break;
                             case 11: continuar=false; user=2; break;
-                            case 12: totalSells();break;
-                            default: endprogram = false; break;
+                            case 12: continuar = false; endprogram = false; break;
+                            default: cout << "\nError!"; break;
                         }
                     
                 }
@@ -132,17 +137,18 @@ int main(){
                     cin.ignore();
                     
                     switch(opcion){
-                        case 1: addOrder(); break;
+                        case 1: addOrderD(); break;
                         case 2: addOrderR(); break;
                         case 3: showDeliveryOrder(); break;
-                        case 4: searchOrderbyClient();break;
-                        case 5: showRestaurantOrder();break;
-                        case 6: totalSells();break;
-                        case 7: loginUser();break;
-                        case 9: endprogram = false; break;
-                        case 10: showRestaurantOrder();break;
-                        case 11: totalSells();break;
-                        default: loginUser(); continuar = false;break;
+                        case 4: searchOrderbyClient(); break;
+                        case 5: showRestaurantOrder(); break;
+                        case 6: totalSells(); break;
+                        case 7: loginUser(); break;
+                        case 8: endprogram = false; break;
+                        case 9: showRestaurantOrder(); break;
+                        case 10: loginUser(); continuar = false;break;
+                        case 11: continuar = false; endprogram = false; break;
+                        default: cout << "\nError!"; break;
                     }
                 }while(continuar); 
                 break;
@@ -210,7 +216,7 @@ void printMenuA(void){
     cout << "Opcion: ";
 }
 
-void addOrder(){
+void addOrderD(){
     deliveryOrder p;
     int aux;
     cout << "Nombre:\t"; getline(cin, p.deliveryInfo.name);
@@ -350,6 +356,13 @@ void addOrderR(){
 void showDeliveryOrder(){
 
 }
+void showRestaurantOrder(){
+
+}
+
+void cancelOrder(){
+
+}
 
 void delteOrderD(){
     string name = "";
@@ -407,9 +420,7 @@ void delteOrderR(){
     cout << "Orden cancelada!" << endl;
 }
 
-void showRestaurantOrder(){
 
-}
 void totalSells(){
 
 }
@@ -418,6 +429,20 @@ void searchOrderbyClient(){
 
 }
 
+void dispatchOrderD(){
+
+}
+
+void dispatchOrderR(){
+
+}
+void averageTimeD(){
+
+}
+
+void averageTimeR(){
+
+}
 
 void addEndList(deliveryOrder p) {
     NodoD *newOrder = new NodoD;
