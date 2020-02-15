@@ -288,6 +288,7 @@ void addOrderD(){
     cin.ignore();
     cout << "Telefono: "; cin >> p.telephone;
     cin.ignore();
+    addEndList(p);
 
 } 
 void addOrderR(){
@@ -354,6 +355,7 @@ void addOrderR(){
 
     cout << "Monto: "; cin >> p.houseInfo.total;
     cin.ignore();
+    addEndList(p);
 } 
 void showDeliveryOrder(NodoD* list){
     if(!list){
@@ -361,6 +363,8 @@ void showDeliveryOrder(NodoD* list){
     }
     else{
         cout << list->order.deliveryInfo.idOrder << endl;
+        cout << list->order.deliveryInfo.name << endl;
+        cout << list->order.deliveryInfo.total << endl;
         showDeliveryOrder(list->next);
     }
 }
@@ -370,6 +374,8 @@ void showRestaurantOrder(NodoR* list){
     }
     else{
         cout << list->order.houseInfo.idOrder << endl;
+        cout << list->order.houseInfo.name << endl;
+        cout << list->order.houseInfo.total << endl;
         showRestaurantOrder(list->next);
     }
 }
